@@ -22,17 +22,16 @@ module.exports = {
     let data = {}
 
     // find scenics
-    if(props.city){
-      const res = await strapi.services.discity.fetch({id: props.city});
-      data.scenic = res.toJSON().scenics || [];
-    }
+    // if(props.city){
+    //   const res = await strapi.services.discity.fetch({id: props.city});
+    //   data.scenic = res.toJSON().scenics || [];
+    // }
 
     // find hotels
     // 不连表查询
     // const res = await strapi.models.hotel.fetchAll(props);
     // 连表查询
     const hotels = await strapi.services.hotel.fetchAll(props);
-    //data.hotels = res.toJSON();
 
     // 去除不需要的属性
     data.hotels = hotels.toJSON().map(v => {
@@ -45,6 +44,10 @@ module.exports = {
         },
         {
           name: "艺龙",
+          price: v.price + _.random(1, 100, true).toFixed(2)
+        },
+        {
+          name: "Hotels.com",
           price: v.price + _.random(1, 100, true).toFixed(2)
         }
       ]

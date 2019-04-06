@@ -21,11 +21,12 @@ module.exports = {
     const {name} = ctx.query;
     const condition = {name_contains: name};
 
-    // search province and citys
+    // 模糊搜索不能使用strapi.models
     const provinces = await strapi.services.disprovince.fetchAll(condition);
     const cities = await strapi.services.discity.fetchAll(condition);
+    const countries = await strapi.services.discountry.fetchAll(condition);
 
-    const res = [...provinces.toJSON(), ...cities.toJSON()];
+    const res = [...provinces.toJSON(), ...cities.toJSON(), ...countries.toJSON()];
 
     const data = res.map(v => {
       let {scenics, hotels, ...props} = v;
