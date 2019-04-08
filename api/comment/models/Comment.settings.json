@@ -40,6 +40,14 @@
     "hotel": {
       "model": "hotel",
       "via": "comments"
+    },
+    "follow": {
+      "model": "comment",
+      "via": "followed"
+    },
+    "followed": {
+      "collection": "comment",
+      "via": "follow"
     }
   }
 }

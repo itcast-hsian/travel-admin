@@ -2,6 +2,14 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/comments/like",
+      "handler": "Comment.like",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/comments",
       "handler": "Comment.find",
       "config": {
