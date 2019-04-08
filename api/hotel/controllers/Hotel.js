@@ -10,6 +10,41 @@ const _ = require('lodash');
 
 module.exports = {
 
+  comments: async ctx => {
+    //const data = await strapi.models.comment.where(ctx.query).fetchAll();
+
+    const comments = await strapi.services.comment.fetchAll(ctx.query);
+    const total = await strapi.services.comment.count(ctx.query);
+
+    const data = comments.toJSON().filter(v => {
+      v.hotel = v.hotel.id;
+      return !v.follow;
+    });
+
+    return {
+      data,
+      total
+    }
+  }, 
+
+  options: async ctx => {
+    const levels = await strapi.models.hotellevel.fetchAll();
+    const types = await strapi.models.hoteltype.fetchAll();
+    const assets = await strapi.models.hotelasset.fetchAll();
+    const brands = await strapi.models.hotelbrand.fetchAll();
+
+    return {
+      data: {
+        levels,
+        types,
+        assets,
+        brands
+      }
+    }
+
+  },
+
+
   /**
    * Retrieve hotel records.  
    *

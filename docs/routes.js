@@ -113,12 +113,13 @@
 * @apiParam {String} ALL 			所有字段
 * @apiParam {String} name_contains 	名字模糊查询
 * @apiParam {String} _sort  		排序
-* @apiParam {String} _limit  		条数
-* 
+* @apiParam {Number} _limit  		条数
+* @apiParam {Number} _start         开始数据（分页）
+*
 * @apiSuccess {Object} data 酒店信息
 * 
 * @apiExample 请求例子
-* 	127.0.0.1:1337/hotels?city=197&country=2046&name_contains=香格&_limit=1
+* 	127.0.0.1:1337/hotels?city=197&country=2046&name_contains=香格&_limit=1&_start=0
 * 
 * @apiSuccessExample 成功响应：
 {
@@ -303,8 +304,98 @@
 * 
 * @apiSuccessExample 成功响应：
 {
-    status: 0,
-    message: "success"
+    data: {
+        "levels": [],
+        "types": [],
+        "assets": [],
+        "brands": []
+    }
+}
+*
+* @apiUse RkNotFoundException
+*/
+
+/**
+* 
+* @api {get} /hotels/comments 酒店评论
+* @apiName Hotel Comments
+* @apiGroup COMMENT
+*
+* @apiParam {Number} hotel          酒店id
+* @apiParam {String} _sort          排序
+* @apiParam {Number} _limit         条数
+* @apiParam {Number} _start         开始数据（分页）
+* 
+* @apiSuccessExample 成功响应：
+{
+    "data": [
+        {
+            "id": 1,
+            "account": 1,
+            "content": "酒店环境很好",
+            "like": 1,
+            "likeIds": [],
+            "score": 4.5,
+            "hotel": 2,
+            "created_at": 1554368708175,
+            "updated_at": 1554705888282
+        }
+    ],
+    "total": 1
+}
+*
+* @apiUse RkNotFoundException
+*/
+
+/**
+* 
+* @api {get} /hotels/comments 评论点赞
+* @apiName Hotel Comments
+* @apiGroup COMMENT
+*
+* @apiParam {Number} hotel          酒店id
+* @apiParam {String} _sort          排序
+* @apiParam {Number} _limit         条数
+* @apiParam {Number} _start         开始数据（分页）
+* 
+* @apiSuccessExample 成功响应：
+{
+    "data": [
+        {
+            "id": 1,
+            "account": 1,
+            "content": "酒店环境很好",
+            "like": 1,
+            "likeIds": [],
+            "score": 4.5,
+            "hotel": 2,
+            "created_at": 1554368708175,
+            "updated_at": 1554705888282
+        }
+    ],
+    "total": 1
+}
+*
+* @apiUse RkNotFoundException
+*/
+
+/**
+* 
+* @api {get} /comments/like 评论点赞
+* @apiName Hotel Comments
+* @apiGroup COMMENT
+*
+* @apiHeader {String} Authorization token
+* @apiHeaderExample token请求头
+{
+    Authorization： Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTU0NzA5MDEzLCJleHAiOjE1NTczMDEwMTN9.rOOiugMSBZwPvEtFBV7f_gPnLOR90N5nDLWgh_G6R-0
+}
+*
+* @apiParam {Number} id             评论id
+* 
+* @apiSuccessExample 成功响应：
+{
+    id: 1
 }
 *
 * @apiUse RkNotFoundException

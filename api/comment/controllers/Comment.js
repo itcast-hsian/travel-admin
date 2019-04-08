@@ -8,6 +8,38 @@
 
 module.exports = {
 
+  like: async ctx => {
+    const { id: uid } = ctx.state.user;
+    const {id} = ctx.query;
+
+    if(!id){
+      return ctx.badRequest(null, 'must be provoid comment id.');
+    }
+
+    let res = await strapi.services.comment.fetch({id});
+    res = res.toJSON(); 
+
+
+    if(!res.likeIds){
+      res.likeIds = [];
+    }
+
+    if(res.likeIds.indexOf(uid) > -1){
+      return ctx.badRequest(null, 'user is already like.');
+    }else{
+      res.likeIds.push(uid);
+    }
+
+    const like = res.like + 1;
+
+    return strapi.services.comment.edit({
+      id,
+      like: like,
+      likeIds: res.likeIds
+    });
+
+  },
+
   /**
    * Retrieve comment records.
    *
