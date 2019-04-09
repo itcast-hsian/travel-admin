@@ -106,7 +106,7 @@
 
 /**
 * 
-* @api {get} /hotels 酒店
+* @api {get} /hotels 酒店详情
 * @apiName Hotels
 * @apiGroup HOTEL
 *
@@ -317,40 +317,8 @@
 
 /**
 * 
-* @api {get} /hotels/comments 酒店评论
-* @apiName Hotel Comments
-* @apiGroup COMMENT
-*
-* @apiParam {Number} hotel          酒店id
-* @apiParam {String} _sort          排序
-* @apiParam {Number} _limit         条数
-* @apiParam {Number} _start         开始数据（分页）
-* 
-* @apiSuccessExample 成功响应：
-{
-    "data": [
-        {
-            "id": 1,
-            "account": 1,
-            "content": "酒店环境很好",
-            "like": 1,
-            "likeIds": [],
-            "score": 4.5,
-            "hotel": 2,
-            "created_at": 1554368708175,
-            "updated_at": 1554705888282
-        }
-    ],
-    "total": 1
-}
-*
-* @apiUse RkNotFoundException
-*/
-
-/**
-* 
-* @api {get} /hotels/comments 评论点赞
-* @apiName Hotel Comments
+* @api {get} /hotels/comments 获取酒店评论
+* @apiName Get Hotel Comments
 * @apiGroup COMMENT
 *
 * @apiParam {Number} hotel          酒店id
@@ -382,7 +350,7 @@
 /**
 * 
 * @api {get} /comments/like 评论点赞
-* @apiName Hotel Comments
+* @apiName Hotel Comments Like
 * @apiGroup COMMENT
 *
 * @apiHeader {String} Authorization token
@@ -397,6 +365,186 @@
 {
     id: 1
 }
+*
+* @apiUse RkNotFoundException
+*/
+
+
+
+/**
+* 
+* @api {post} /comments 提交评论
+* @apiName Set Hotel Comments
+* @apiGroup COMMENT
+*
+* @apiHeader {string} Content-Type application/json
+* @apiHeader {String} Authorization token
+* @apiHeaderExample token请求头
+{
+    Authorization： Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTU0NzA5MDEzLCJleHAiOjE1NTczMDEwMTN9.rOOiugMSBZwPvEtFBV7f_gPnLOR90N5nDLWgh_G6R-0
+}
+*
+* @apiParam {String} content 评论内容
+* @apiParam {Object} score   评分镀锌
+* @apiParam {Float}  score.location   位置评分
+* @apiParam {Float}  score.service    服务评分
+* @apiParam {Float}  score.fancility  设施评分
+* @apiParam {Float}  score.all        总体评分
+* @apiParam {Array}  pics             图片
+* @apiParam {Number} hotel            酒店id
+* @apiParam {Number} account          用户id
+*
+* @apiExample 请求例子
+{
+    "content": "postman 评论2",
+    "like": 1,
+    "likeIds": [1],
+    "score": {"service": 4, "location": 4.2},
+    "pics": [
+        {
+            "created_at": 1554780485209,
+            "ext": ".jpeg",
+            "hash": "a067aac50f3c4224bfb060f7c81dc54c",
+            "id": 3,
+            "mime": "image/jpeg",
+            "name": "wKgBZ1laE5GAH0GWAAGFZyv3znE68.jpeg",
+            "provider": "local",
+            "public_id": null,
+            "related": [],
+            "sha256": "xn-vndROmvVAbUIqrahe0zAizgAn2S1cEKcA6_ubcKE",
+            "size": "99.96",
+            "updated_at": 1554780485233,
+            "url": "/uploads/a067aac50f3c4224bfb060f7c81dc54c.jpeg"
+        }
+    ],
+    "account": 1,
+    "hotel": 1
+    
+} 
+* 
+* @apiSuccessExample 成功响应：
+{
+    "id": 7,
+    "account": {
+        "id": 1,
+        "username": "13312882474",
+        "password": "123123",
+        "email": null,
+        "role": 2,
+        "nickname": "my",
+        "created_at": 1553587751614,
+        "updated_at": 1553587751627
+    },
+    "content": "postman 评论2",
+    "like": 1,
+    "likeIds": [
+        1
+    ],
+    "score": {
+        "service": 4,
+        "location": 4.2
+    },
+    "hotel": {
+        "id": 1,
+        "name": "7天连锁-棠下店",
+        "enName": "seven day - tang xia",
+        "isHot": 1,
+        "score": 3.4,
+        "location": {},
+        "summary": "7天连锁-国内最大的连锁酒店",
+        "enterTime": "2019-04-01 00:00:00",
+        "leftTime": "2019-04-11 00:00:00",
+        "buildTime": "2019-04-04 00:00:00",
+        "lastBuildTime": "2019-04-18 00:00:00",
+        "roomCount": 100,
+        "province": 18,
+        "city": 3,
+        "hotellevel": 1,
+        "hoteltype": 1,
+        "hotelbrand": 1,
+        "price": 200,
+        "country": 2046,
+        "created_at": 1554196236247,
+        "updated_at": 1554514582265
+    },
+    "follow": null,
+    "created_at": 1554782672015,
+    "updated_at": 1554782672033,
+    "pics": [
+        {
+            "id": 3,
+            "name": "wKgBZ1laE5GAH0GWAAGFZyv3znE68.jpeg",
+            "hash": "a067aac50f3c4224bfb060f7c81dc54c",
+            "sha256": "xn-vndROmvVAbUIqrahe0zAizgAn2S1cEKcA6_ubcKE",
+            "ext": ".jpeg",
+            "mime": "image/jpeg",
+            "size": "99.96",
+            "url": "/uploads/a067aac50f3c4224bfb060f7c81dc54c.jpeg",
+            "provider": "local",
+            "public_id": null,
+            "created_at": 1554780485209,
+            "updated_at": 1554780485233
+        }
+    ],
+    "followed": []
+}
+*
+* @apiUse RkNotFoundException
+*/
+
+/**
+* 
+* @api {get} /upload 文件上传
+* @apiName upload
+* @apiGroup UPLOAD
+*
+* @apiHeader {String} Authorization token
+* @apiHeaderExample token请求头
+{
+    Authorization： Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTU0NzA5MDEzLCJleHAiOjE1NTczMDEwMTN9.rOOiugMSBZwPvEtFBV7f_gPnLOR90N5nDLWgh_G6R-0
+}
+*
+* @apiParam {files} files       评论id
+*
+* @apiExample 请求例子
+<form>
+  <!-- Can be multiple files -->
+  <input type="file" name="files">
+  <input type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+  const formElement = document.querySelector('form');
+
+  formElement.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const request = new XMLHttpRequest();
+
+    request.open('POST', 'http://127.0.0.1:1337/upload');
+
+    request.send(new FormData(formElement));
+  });
+</script>
+* 
+* @apiSuccessExample 成功响应：
+[
+    {
+        created_at: 1554780485209,
+        ext: ".jpeg",
+        hash: "a067aac50f3c4224bfb060f7c81dc54c",
+        id: 3,
+        mime: "image/jpeg",
+        name: "wKgBZ1laE5GAH0GWAAGFZyv3znE68.jpeg",
+        provider: "local",
+        public_id: null,
+        related: [],
+        sha256: "xn-vndROmvVAbUIqrahe0zAizgAn2S1cEKcA6_ubcKE",
+        size: "99.96",
+        updated_at: 1554780485233,
+        url: "/uploads/a067aac50f3c4224bfb060f7c81dc54c.jpeg"
+    }
+]
 *
 * @apiUse RkNotFoundException
 */
