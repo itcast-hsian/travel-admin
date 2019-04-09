@@ -5,7 +5,7 @@
 ### 1.Clone respository
 
 ```
-git clone https://github.com/itcast-hsian/travel-admin.git
+git clone [仓库地址]
 ```
 
 ### 2.install dependencies
